@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "author": "Shamim",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "potV",
+      "top": -190,
+      "left": -360,
+      "attrs": { "travelLength": "30", "value": "512" }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "potI",
+      "top": -80,
+      "left": -360,
+      "attrs": { "travelLength": "30", "value": "256" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledFault",
+      "top": 98,
+      "left": -330,
+      "attrs": { "color": "red", "label": "FAULT" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rFault",
+      "top": 134,
+      "left": -279,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "ledOk",
+      "top": 168,
+      "left": -210,
+      "attrs": { "color": "limegreen", "label": "NORMAL" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "rOk",
+      "top": 204,
+      "left": -159,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 226,
+      "left": -160,
+      "attrs": { "volume": "0.1" }
+    },
+    { "type": "wokwi-relay-module", "id": "relay", "top": 280, "left": 40, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "ledLoad",
+      "top": 278,
+      "left": 270,
+      "attrs": { "color": "yellow", "label": "APPLIANCE" }
+    },
+    { "type": "wokwi-lcd1602", "id": "lcd", "top": -215, "left": 220, "attrs": { "pins": "i2c" } },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnMenu",
+      "top": 140,
+      "left": 210,
+      "attrs": { "color": "green", "label": "MENU", "key": "m" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnUp",
+      "top": 140,
+      "left": 310,
+      "attrs": { "color": "blue", "label": "UP", "key": "ArrowUp" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btnDown",
+      "top": 140,
+      "left": 410,
+      "attrs": { "color": "blue", "label": "DOWN", "key": "ArrowDown" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "tTitle",
+      "top": -297.6,
+      "left": -38.4,
+      "attrs": { "text": "VOLTAGE PROTECTOR  DEVICE " }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "tPots",
+      "top": -211.2,
+      "left": -316.8,
+      "attrs": { "text": "GRID VOLTAGE" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "tAlarm",
+      "top": 75,
+      "left": -330,
+      "attrs": { "text": "STATUS" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "tRelay",
+      "top": 345.6,
+      "left": 96,
+      "attrs": { "text": "Relay\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "tKeys",
+      "top": 201.6,
+      "left": 307.2,
+      "attrs": { "text": "CONFIGURATION BUTTONS" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "tPots1",
+      "top": 28.8,
+      "left": -307.2,
+      "attrs": { "text": "BUTTONS" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "potV:SIG", "esp:35", "orange", [ "h-23", "v204" ] ],
+    [ "potI:SIG", "esp:34", "violet", [ "h-13", "v84" ] ],
+    [ "potV:VCC", "esp:3V3", "red", [ "h-33", "v-75", "h372", "v251" ] ],
+    [ "potI:VCC", "potV:VCC", "red", [ "h-33", "v-110" ] ],
+    [ "potV:GND", "lcd:GND", "black", [ "h13", "v3", "h345", "v-39" ] ],
+    [ "potI:GND", "potV:GND", "black", [ "h13", "v-110" ] ],
+    [ "esp:GND.2", "lcd:GND", "black", [ "h29", "v-172.8", "h75", "v-39" ] ],
+    [ "esp:33", "rFault:2", "red", [ "h-80", "v44" ] ],
+    [ "rFault:1", "ledFault:A", "red", [] ],
+    [ "esp:25", "rOk:2", "limegreen", [ "h-70", "v104" ] ],
+    [ "rOk:1", "ledOk:A", "limegreen", [] ],
+    [ "esp:26", "buzzer:2", "purple", [ "h-60", "v205", "h-68" ] ],
+    [ "ledFault:C", "esp:GND.1", "black", [ "v230", "h270", "v-216" ] ],
+    [ "ledOk:C", "esp:GND.1", "black", [ "v160", "h150", "v-216" ] ],
+    [ "buzzer:1", "esp:GND.1", "black", [ "v60", "h88", "v-216" ] ],
+    [ "esp:27", "relay:IN", "orange", [ "h-40", "v193" ] ],
+    [ "esp:GND.1", "relay:GND", "black", [ "h-30", "v155" ] ],
+    [ "esp:5V", "relay:VCC", "red", [ "h-20", "v97" ] ],
+    [ "relay:COM", "relay:GND", "black", [ "h21", "v-42", "h-147", "v41" ] ],
+    [ "relay:NO", "ledLoad:C", "gold", [] ],
+    [ "ledLoad:A", "esp:5V", "red", [ "h15", "v-62", "h-318", "v-56" ] ],
+    [ "esp:22", "lcd:SCL", "green", [ "h59", "v-202" ] ],
+    [ "esp:21", "lcd:SDA", "blue", [ "h69", "v-241" ] ],
+    [ "lcd:VCC", "ledLoad:A", "red", [ "h-12", "v-72", "h333", "v503", "h-235", "v62" ] ],
+    [ "esp:19", "btnDown:1.l", "blue", [ "h294", "v57" ] ],
+    [ "esp:18", "btnUp:1.l", "blue", [ "h194", "v47" ] ],
+    [ "esp:5", "btnMenu:1.l", "green", [ "h94", "v38" ] ],
+    [ "btnMenu:2.r", "btnUp:2.l", "black", [] ],
+    [ "btnUp:2.r", "btnDown:2.l", "black", [] ],
+    [ "btnDown:2.r", "esp:GND.3", "black", [ "h23", "v-86" ] ]
+  ],
+  "dependencies": {}
+}
